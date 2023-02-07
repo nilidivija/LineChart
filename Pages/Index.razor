@@ -1,0 +1,95 @@
+﻿@page "/"
+@using LineChart.Data
+@using Microsoft.JSInterop
+@inject SummaryDataService DataService
+@inject IJSRuntime JS
+
+
+<div id="teams_names">
+
+    @foreach (var team in distinctTeams)
+    {
+        <button type="button" style="margin-bottom:10px;" class="btn btn-primary" value="@team" @onclick='@(e=>SelectTeam(@team))'>@team</button><span>&nbsp;</span>
+
+    }
+
+
+</div>
+<br />
+<button type="button" @onclick="CreateLineChart">Generate Chart</button>
+<div>
+    <canvas id="lineChart"  width="600" height="250"></canvas>
+</div>
+
+
+
+@code{
+
+    string teamName;
+
+    public int[] dataSet1;
+    private int[] dataSet2;
+    private int[] dataSet3;
+    private int[] dataSet4;
+    private int[] dataSet5;
+    private int[] dataSet6;
+    private int[] dataSet7;
+    private int[] dataSet8;
+    private int[] dataSet9;
+    private int[] dataSet10;
+    private int[] dataSet11;
+    private int[] dataSet12;
+    private int[] dataSet13;
+    private string[] meetingLeadSource;
+    private string[] meetingMonth;
+
+    public IEnumerable<String> distinctTeams { get; set; }
+    public IEnumerable<String> distinctMeetingLeadSource { get; set; }
+    public IEnumerable<String> distinctMeetingMonth { get; set; }
+    public IEnumerable<SummaryData> filtereddata { get; set; }
+
+    private IEnumerable<SummaryData> summaryDatas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        summaryDatas = await DataService.GetSummaryDataAsync();
+
+        IEnumerable<String> Teams = summaryDatas.Select(t => t.Team);
+        distinctTeams = Teams.Distinct();
+
+        IEnumerable<String> MS = summaryDatas.Select(m => m.MeetingLeadSource);
+        distinctMeetingLeadSource = MS.Distinct();
+
+        meetingLeadSource = distinctMeetingLeadSource.ToArray();
+
+        IEnumerable<String> MM = summaryDatas.Select(m => m.MeetingMonth);
+        distinctMeetingMonth = MM.Distinct();
+        meetingMonth = distinctMeetingMonth.ToArray();
+    }
+
+    void SelectTeam(string tN)
+    {
+        dataSet1 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[0]).Select(s => s.Count).ToArray();
+        dataSet2 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[1]).Select(s => s.Count).ToArray();
+        dataSet3 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[2]).Select(s => s.Count).ToArray();
+        dataSet4 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[3]).Select(s => s.Count).ToArray();
+        dataSet5 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[4]).Select(s => s.Count).ToArray();
+        dataSet6 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[5]).Select(s => s.Count).ToArray();
+        dataSet7 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[6]).Select(s => s.Count).ToArray();
+        dataSet8 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[7]).Select(s => s.Count).ToArray();
+        dataSet9 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[8]).Select(s => s.Count).ToArray();
+        dataSet10 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[9]).Select(s => s.Count).ToArray();
+        dataSet11 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[10]).Select(s => s.Count).ToArray();
+        dataSet12 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[11]).Select(s => s.Count).ToArray();
+        dataSet13 = summaryDatas.Where(x => x.Team == tN && x.MeetingLeadSource == meetingLeadSource[12]).Select(s => s.Count).ToArray();
+        teamName = tN;
+    }
+
+    private async Task CreateLineChart()
+    {
+        await JS.InvokeVoidAsync("setup", teamName, meetingLeadSource, meetingMonth, dataSet1, dataSet2, dataSet3, dataSet4, dataSet5, dataSet6, dataSet7, dataSet8, dataSet9, dataSet10, dataSet11, dataSet12, dataSet13);
+    }
+
+
+
+}

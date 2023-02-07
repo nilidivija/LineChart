@@ -1,0 +1,145 @@
+﻿@page "/"
+@namespace LineChart.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LineChart</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    <script>
+        function setup(teamName, meetingLeadSource, meetingMonth, dataSet1, dataSet2, dataSet3, dataSet4, dataSet5, dataSet6, dataSet7, dataSet8, dataSet9, dataSet10, dataSet11, dataSet12, dataSet13) {
+
+            const ctx = document.getElementById('lineChart').getContext('2d');
+            console.log(teamName);
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: meetingMonth,
+                    datasets: [
+                        {
+                            label: meetingLeadSource[0],
+                            data: dataSet1,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[1],
+                            data: dataSet2,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[2],
+                            data: dataSet3,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[3],
+                            data: dataSet4,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[4],
+                            data: dataSet5,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[5],
+                            data: dataSet6,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[6],
+                            data: dataSet7,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[7],
+                            data: dataSet8,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[8],
+                            data: dataSet9,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[9],
+                            data: dataSet10,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[10],
+                            data: dataSet11,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[11],
+                            data: dataSet12,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        },
+                        {
+                            label: meetingLeadSource[12],
+                            data: dataSet13,
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: teamName
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
